@@ -8,3 +8,9 @@ h4 {
 .container {
 align-items: center;
 }
+h1 {
+  margin: 10px
+}
+h3 {
+  margin: 5px
+}
