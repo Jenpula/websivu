@@ -8,6 +8,17 @@ function App() {
   const [items, setItems] = useState([]);
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [filteredData,setFilteredData] = useState(items);
+
+  const handleSearch = (event) => {
+    let value = event.target.value.toLowerCase();
+    let result = [];
+    result = items.filter((data) => {
+      return data.Date.search(value) !== -1;
+
+    });
+    setFilteredData(result);
+  }
 
 
   useEffect(() => {
@@ -17,6 +28,7 @@ function App() {
     axios.get(address)
     .then((response) => {
       setItems(response.data);
+      setFilteredData(response.data);
       console.log(response)
       setIsLoaded(true);
     }).catch(error => {
@@ -37,16 +49,18 @@ function App() {
     return (  
         <div className="text-center">
         <h1>Koronavirustapaukset Suomessa</h1>
-          {items.map(item => (
-              <div key={item.Date}>
+        <label>Etsi päivämäärän mukaan</label>
+        <input type="text" onChange={(event) => handleSearch(event)} />
+          {filteredData.map(items => (
+              <div key={items.Date}>
                 <h3>Päivämäärä</h3>
-                <p>{item.Date}</p>
+                <p>{items.Date}</p>
                 <h4>Vahvistetut koronavirus tartunnat</h4>
-                <p>{item.Confirmed}</p>
+                <p>{items.Confirmed}</p>
                 <h4>Aktiiviset tartunnat</h4>
-                <p>{item.Active}</p>
+                <p>{items.Active}</p>
                 <h4>Kuolleiden määrä</h4>
-                <p>{item.Deaths}</p>
+                <p>{items.Deaths}</p>
                 <hr></hr>
               </div>
             ))
