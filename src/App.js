@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import './App.css';
-
+// API
 const URL = 'https://api.covid19api.com';
 
 function App() {
@@ -10,6 +10,7 @@ function App() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [filteredData,setFilteredData] = useState(items);
 
+// SEARCHBAR
   const handleSearch = (event) => {
     let value = event.target.value.toLowerCase();
     let result = [];
@@ -20,11 +21,11 @@ function App() {
     setFilteredData(result);
   }
 
-
+  // API
   useEffect(() => {
     const criteria = 'country/finland?from=2022-01-01T00:00:00Z&to=2022-02-14T00:00:00Z'
     const address = URL + '/' + criteria;
-     
+
     axios.get(address)
     .then((response) => {
       setItems(response.data);
@@ -34,18 +35,17 @@ function App() {
     }).catch(error => {
       setError(error);
      
-
     });
-
+    
   }, []);
-
+  // IF ERROR, PAGE GIVES ERROR MESSAGE, OTHERWISE FIRST IT LOADS AND THEN SHOWS INFORMATION.
   if(error) {
     return <p>{error.message}</p>;
-  }else if (!isLoaded) { //'isloaded === false' on sama asia mutta ! edessä tarkoittaa myös ei.
+  }else if (!isLoaded) {
     return <p>Loading...</p>
   }
   else {
-
+    // GETTING INFORMATION FROM API
     return (  
         <div className="text-center">
         <h1>Koronavirustapaukset Suomessa</h1>
