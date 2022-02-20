@@ -23,7 +23,7 @@ function App() {
 
   // API
   useEffect(() => {
-    const criteria = 'country/finland?from=2022-01-01T00:00:00Z&to=2022-02-14T00:00:00Z'
+    const criteria = 'country/finland?from=2022-01-01T00:00:00Z&to=2022-02-20T00:00:00Z'
     const address = URL + '/' + criteria;
 
     axios.get(address)
