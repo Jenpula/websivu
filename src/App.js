@@ -30,7 +30,6 @@ function App() {
     .then((response) => {
       setItems(response.data);
       setFilteredData(response.data);
-      console.log(response)
       setIsLoaded(true);
     }).catch(error => {
       setError(error);
